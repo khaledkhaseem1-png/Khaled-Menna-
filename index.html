@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khaled × Menna</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;color:#fff;min-height:100vh;background:radial-gradient(circle at top,#4b1730,#160a12 50%,#070507);overflow-x:hidden}
+.wrap{max-width:760px;margin:auto;padding:24px 16px}.screen{display:none;min-height:92vh;align-items:center;justify-content:center}.active{display:flex}
+.card{width:100%;padding:36px 26px;text-align:center;border:1px solid #ffffff1f;border-radius:28px;background:#ffffff12;backdrop-filter:blur(18px);box-shadow:0 25px 80px #0008}
+.brand{color:#ff9fc4;font-weight:bold;line-height:1.9;margin-bottom:18px}.logo{font-size:58px}.sub{color:#ddcbd3;line-height:2;margin:18px 0 28px}
+button{font-family:inherit;cursor:pointer}.main{border:0;border-radius:999px;padding:15px 34px;color:#fff;font-weight:bold;font-size:16px;background:linear-gradient(135deg,#ff4f91,#bd2b65)}
+.progress{margin-bottom:24px}.pi{display:flex;justify-content:space-between;color:#cdbcc5;font-size:13px;margin-bottom:8px}.bar{height:7px;background:#ffffff18;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ff4f91,#ffc0d7);transition:.4s}
+.stage{color:#ff91b9;font-size:14px;font-weight:bold;margin-bottom:14px}.q{font-size:27px;line-height:1.6;margin:0 0 22px}
+textarea{width:100%;min-height:185px;background:#0005;color:#fff;border:1px solid #ffffff22;border-radius:20px;padding:17px;outline:0;font:16px Tahoma,Arial,sans-serif;line-height:1.9;resize:vertical}textarea:focus{border-color:#ff6c9f}
+.counter{text-align:left;color:#9c8b94;font-size:11px;margin-top:7px}.msg{height:25px;color:#ff9fc4;font-size:13px;margin-top:8px}.act{margin-top:20px}
+.music{position:fixed;left:14px;bottom:14px;z-index:5;border:1px solid #ffffff22;background:#150a12dd;color:#fff;border-radius:999px;padding:9px 13px}
+.final-heart{font-size:64px}.final-title{color:#ff9fc4;font-size:32px}.final-message{line-height:2.25;color:#eee0e7;font-size:17px}.sig{color:#ff9fc4;font-weight:bold;margin-top:25px}
+.note{font-size:11px;color:#95858d;line-height:1.7;margin-top:16px}
+</style></head>
+<body>
+<audio id="music" loop preload="auto"><source src="song.mp3" type="audio/mpeg"></audio>
+<button class="music" id="musicBtn" onclick="toggleMusic()">🔇</button>
+<div class="wrap">
+<section id="start" class="screen active"><div class="card">
+<div class="brand">خالد بيعشق هوا منة علي ❤️<br>خالد ملوش غير منة علي ❤️</div>
+<div class="logo">❤️</div><h1>مين يعرف التاني أكتر؟</h1>
+<p class="sub">المرة دي مفيش اختيارات...<br>ومفيش إجابة صح أو غلط.<br><br>اكتبي أول إجابة تيجي في بالك ❤️</p>
+<button class="main" onclick="startGame()">ابدئي اللعبة</button>
+<p class="note">الموسيقى هتبدأ بعد الضغط على الزر.</p>
+</div></section>
+
+<section id="quiz" class="screen"><div class="card">
+<div class="brand">خالد بيعشق هوا منة علي ❤️<br>خالد ملوش غير منة علي ❤️</div>
+<div class="progress"><div class="pi"><span id="stage"></span><span id="num"></span></div><div class="bar"><div id="fill" class="fill"></div></div></div>
+<div id="stage2" class="stage"></div><h2 id="question" class="q"></h2>
+<textarea id="answer" maxlength="1000" placeholder="اكتبي إجابتك هنا..."></textarea>
+<div class="counter"><span id="count">0</span> / 1000</div><div id="msg" class="msg"></div>
+<div class="act"><button id="next" class="main" onclick="nextQ()">كمّلي ❤️</button></div>
+</div></section>
+
+<section id="final" class="screen"><div class="card">
+<div class="brand">خالد بيعشق هوا منة علي ❤️<br>خالد ملوش غير منة علي ❤️</div>
+<div class="final-heart">❤️</div><h2 class="final-title">وصلنا للنهاية...</h2>
+<p class="final-message">أنا مكنتش عامل اللعبة دي عشان أعرف إنتِ تعرفيني قد إيه...
+<br><br>كنت عاملها عشان أعرف إنتِ شايفة الحكاية اللي بينا إزاي.
+<br><br>ومهما كانت إجاباتك، فأجمل حاجة بالنسبة لي إن كل كلمة كتبتيها جات من قلبك.
+<br><br>يمكن اللعبة خلصت... بس حكايتنا لسه فيها أسئلة كتير، وذكريات أكتر، وحاجات لسه هنعيشها سوا. ❤️</p>
+<div class="sig">— خالد ❤️</div>
+</div></section>
+</div>
+<script>
+const Q=[
+["المرحلة الأولى — فاكراني؟","إيه أكتر حاجة بتفتكري إنها بتفرحني؟"],
+["المرحلة الأولى — فاكراني؟","لما أكون متضايق، إيه أكتر حاجة بتفتكري إني بحتاجها منك؟"],
+["المرحلة الأولى — فاكراني؟","إيه أكتر حاجة بتخليني أغير؟ 👀"],
+["المرحلة الأولى — فاكراني؟","إيه أكتر تفصيلة صغيرة فاكرة إني بحبها فيكي؟"],
+["المرحلة الثانية — مين فينا؟","مين فينا بيغير أكتر؟ وليه؟ 👀"],
+["المرحلة الثانية — مين فينا؟","مين فينا بيصالح التاني أسرع؟"],
+["المرحلة الثانية — مين فينا؟","مين فينا بيتعلق أكتر؟"],
+["المرحلة الثانية — مين فينا؟","مين فينا بيفكر في التاني أكتر من ما بيقول؟"],
+["المرحلة الثالثة — لو إحنا...","لو قضينا يوم كامل سوا من غير أي مسؤوليات، تتخيلي اليوم هيبقى عامل إزاي؟"],
+["المرحلة الثالثة — لو إحنا...","لو سافرنا بكرة، أول مكان تتمني نروحه فين؟"],
+["المرحلة الثالثة — لو إحنا...","لو نقدر نعيد يوم واحد من أيامنا، تختاري أنهي يوم وليه؟"],
+["المرحلة الثالثة — لو إحنا...","لو بعد سنين رجعنا نفتكر الفترة دي، إيه أكتر حاجة تتمني نفتكرها؟"],
+["المرحلة الرابعة — بصراحة...","إيه أكتر حاجة بتحبيها في علاقتنا؟"],
+["المرحلة الرابعة — بصراحة...","إيه أكتر حاجة نفسك أفضل أعملها معاكي؟"],
+["المرحلة الرابعة — بصراحة...","إيه حاجة نفسك أفهمها عنك أكتر؟"],
+["المرحلة الرابعة — بصراحة...","لو هتوصفي علاقتنا في 3 كلمات، هيكونوا إيه؟"],
+["المرحلة الخامسة — آخر 4 أسئلة","أول حاجة بتيجي في بالك لما تسمعي اسم خالد؟ ❤️"],
+["المرحلة الخامسة — آخر 4 أسئلة","إيه أكتر ذكرى بينا مستحيل تنسيها؟"],
+["المرحلة الخامسة — آخر 4 أسئلة","لو هتبعتيلي رسالة من قلبك من غير ما تفكري، هتكتبيلي إيه؟ ❤️"],
+["المرحلة الخامسة — آخر 4 أسئلة","بعد كل اللي حصل بينا، إيه أكتر حاجة نفسك تحصل لنا بعد كده؟ ❤️"]
+];
+const SUPABASE_URL="https://crmsqwpcvzjnixwmneht.supabase.co";
+const SUPABASE_KEY="sb_publishable_8V-oGZ9MtRn0xbubANBCxg_kMOc25tF";
+let i=0,A=JSON.parse(localStorage.getItem("km_answers")||"[]"),music=document.getElementById("music");
+const $=x=>document.getElementById(x);
+$("answer").oninput=()=>{$("count").textContent=$("answer").value.length};
+function startGame(){$("start").classList.remove("active");$("quiz").classList.add("active");music.volume=.35;music.play().catch(()=>{});load()}
+function load(){let q=Q[i];$("stage").textContent=q[0];$("stage2").textContent=q[0];$("question").textContent=q[1];$("num").textContent=(i+1)+" / "+Q.length;$("fill").style.width=((i+1)/Q.length*100)+"%";$("answer").value=A[i]||"";$("count").textContent=$("answer").value.length;$("msg").textContent="";$("next").textContent=i===Q.length-1?"أنهي اللعبة ❤️":"كمّلي ❤️"}
+async function nextQ(){let v=$("answer").value.trim();if(!v){$("msg").textContent="اكتبي إجابتك الأول ❤️";$("answer").focus();return}A[i]=v;localStorage.setItem("km_answers",JSON.stringify(A));
+if(i===Q.length-1){
+  $("next").disabled=true;$("next").textContent="جاري الحفظ... ❤️";
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/game_answers",{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Prefer":"return=minimal"},body:JSON.stringify({answers:A})});
+    if(!r.ok){let d={};try{d=await r.json()}catch(e){}throw new Error(d.message||"تعذر حفظ الإجابات");}
+    $("quiz").classList.remove("active");$("final").classList.add("active");
+  }catch(e){$("next").disabled=false;$("next").textContent="أنهي اللعبة ❤️";$("msg").textContent="حصلت مشكلة في الحفظ. جربي تاني ❤️";console.error(e)}
+  return;
+}
+$("msg").textContent="اتحفظت إجابتك ❤️";setTimeout(()=>{i++;load()},350)}
+function toggleMusic(){if(music.paused){music.play().then(()=>$("musicBtn").textContent="🔊").catch(()=>{})}else{music.pause();$("musicBtn").textContent="🔇"}}
+</script></body></html>
